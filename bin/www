@@ -37,8 +37,11 @@ const options = {
 
 // Create a Supabase client
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, options);
-
+const { data, error } = await supabase
+        .from('users')
+        .select('id');
 var server = http.createServer(app);
+console.log(data);
 
 
 
