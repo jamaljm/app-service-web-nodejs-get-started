@@ -19,7 +19,27 @@ app.set('port', port);
  * Create HTTP server.
  */
 
+
+const options = {
+  db: {
+    schema: 'public',
+  },
+  auth: {
+    autoRefreshToken: true,
+    persistSession: false,
+    detectSessionInUrl: true,
+  },
+  global: {
+    headers: { 'x-my-custom-header': 'my-app-name' },
+  },
+};
+
+// Create a Supabase client
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, options);
+
 var server = http.createServer(app);
+
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -76,7 +96,6 @@ function onError(error) {
       throw error;
   }
 }
-
 /**
  * Event listener for HTTP server "listening" event.
  */
